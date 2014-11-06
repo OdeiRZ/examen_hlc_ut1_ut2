@@ -25,6 +25,14 @@
 			}
 		}
     }
+    if (isset($_POST['eliminar'])) {
+		for($i = 0; $i < count($_SESSION['tareas']); $i++) {
+			if ($_POST["tareaCheckbox".$i] != "on") {
+				array_pop($_SESSION['tareas'][$i]);		//no recuerdo el metodo para eliminarlo del array
+				array_pop($_SESSION['tareasCheck'][$i]);//y corte la ayuda offline de php
+			}
+		}
+    }
 ?>
 <!DOCTYPE html>
 <html>
