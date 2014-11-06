@@ -31,7 +31,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<style></style>
+		<style>
+		ul
+		{
+			list-style:square;
+			color:green;
+		}
+		</style>
 	<head>
 	<body>
 		<form action="index.php" method="post">
@@ -53,11 +59,15 @@
             <input type="submit" name="anadir" value="Añadir tarea">
 			<hr/>
 <?php
-			$s = (count($_SESSION['tareas']) > 1) ? "s" : "";
 			if (count($_SESSION['tareas']) > 0) {
-				echo "<br/>Hay ".count($_SESSION['tareas'])." tarea".$s." pendiente".$s."<br/><br/>";
+				$errores = count($_SESSION['tareas']);
+				$cont1 = count(array_diff($_SESSION['tareasCheck'], 1));
+				$s = (count($_SESSION['tareas']) > 1) ? "s" : "";
+				echo $cont1;
+				echo "<br/>Hay ".$cont1." tarea".$s." pendiente".$s." de ".$errores." en total<br/><br/>";
 			}
 ?>
+			<input type="submit" name="eliminar" value="Eliminar tareas completadas">
 			<input type="submit" name="limpiar" value="Vaciar la lista">
         </form>
 	</body>
