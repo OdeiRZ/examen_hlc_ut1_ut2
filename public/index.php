@@ -2,6 +2,10 @@
     session_name('listadoTareas');
     session_start();
     
+    if (isset($_POST['limpiar'])) {
+        session_destroy();
+        session_start();
+    }
     if (!isset($_SESSION['tareas'])) {
         $_SESSION['tareas'] = array();
     }
@@ -32,7 +36,9 @@
 		<form action="index.php" method="post">
             <input type="text" name="tarea" placeholder="Introduce una tarea">
             <input type="submit" name="anadir" value="Añadir tarea">
+			<input type="submit" name="limpiar" value="Vaciar la lista">
         </form>
+		<hr/>
 <?php
 		$s = (count($_SESSION['tareas']) > 1) ? "s" : "";
         if (count($_SESSION['tareas']) > 0) {
