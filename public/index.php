@@ -33,5 +33,11 @@
             <input type="text" name="tarea" placeholder="Introduce una tarea">
             <input type="submit" name="anadir" value="Añadir tarea">
         </form>
+<?php
+		$s = (count($_SESSION['tareas']) > 1) ? "s" : "";
+        if (count($_SESSION['tareas']) > 0) {
+		    echo "<br/>Hay ".count($_SESSION['tareas'])." tarea".$s." pendiente".$s;
+        }
+?>
 	</body>
 </html>
