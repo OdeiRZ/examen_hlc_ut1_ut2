@@ -8,10 +8,21 @@
     }
     if (!isset($_SESSION['tareas'])) {
         $_SESSION['tareas'] = array();
+		$_SESSION['tareasCheck'] = array();
     }
     if (isset($_POST['anadir'])) {
 		if ($_POST["tarea"] != "") {
 			array_push($_SESSION['tareas'], $_POST["tarea"]);
+			$_SESSION['tareasCheck'][count($_SESSION['tareas'])-1] == 0;
+		}
+    }
+    if (isset($_POST['guardar'])) {
+		for($i = 0; $i < count($_SESSION['tareas']); $i++) {
+			if ($_POST["tareaCheckbox".$i] == "on") {
+				$_SESSION['tareasCheck'][$i] = 1;
+			} else {
+				$_SESSION['tareasCheck'][$i] = 0;
+			}
 		}
     }
 ?>
@@ -23,27 +34,31 @@
 		<style></style>
 	<head>
 	<body>
-<?php
-        if (count($_SESSION['tareas']) == 0) {
-            echo "No hay tareas. Puede añadir una más abajo.<br/><br/>";
-        } else {
-            for($i = 0; $i < count($_SESSION['tareas']); $i++) {
-                echo $_SESSION['tareas'][$i]."<br/>";
-			}
-			echo "<br/>";
-		}
-?>
 		<form action="index.php" method="post">
+<?php
+			if (count($_SESSION['tareas']) == 0) {
+				echo "No hay tareas. Puede añadir una más abajo.<br/><br/>";
+			} else {
+				echo "<ul>";
+				for($i = 0; $i < count($_SESSION['tareas']); $i++) {
+					$checked = ($_SESSION['tareasCheck'][$i] == 1) ? "checked" : "";
+					echo "<li><input type='checkbox' name='tareaCheckbox".$i."' ".$checked.">";
+					echo "".$_SESSION['tareas'][$i]."</li>";
+				}
+				echo "</ul>";
+			}
+?>
+			<input type="submit" name="guardar" value="Guardar"><br/><br/>
             <input type="text" name="tarea" placeholder="Introduce una tarea">
             <input type="submit" name="anadir" value="Añadir tarea">
+			<hr/>
+<?php
+			$s = (count($_SESSION['tareas']) > 1) ? "s" : "";
+			if (count($_SESSION['tareas']) > 0) {
+				echo "<br/>Hay ".count($_SESSION['tareas'])." tarea".$s." pendiente".$s."<br/><br/>";
+			}
+?>
 			<input type="submit" name="limpiar" value="Vaciar la lista">
         </form>
-		<hr/>
-<?php
-		$s = (count($_SESSION['tareas']) > 1) ? "s" : "";
-        if (count($_SESSION['tareas']) > 0) {
-		    echo "<br/>Hay ".count($_SESSION['tareas'])." tarea".$s." pendiente".$s;
-        }
-?>
 	</body>
 </html>
