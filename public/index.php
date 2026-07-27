@@ -92,7 +92,7 @@
 								$checked = ($_SESSION['tareasCheck'][$i] == 1) ? "checked" : "";
 								echo "\t\t\t\t<li><label for='".$id."'>";
 								echo "<input type='checkbox' name='".$id."' id='".$id."' ".$checked.">";
-								echo "<i>".$_SESSION['tareas'][$i]."</i></label></li>\n";
+								echo "<i>".htmlspecialchars($_SESSION['tareas'][$i])."</i></label></li>\n";
 							}
 						}
 					}
