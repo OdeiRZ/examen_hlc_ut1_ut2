@@ -32,6 +32,10 @@ php -S localhost:8000 -t public
 
 Ejercicio académico (examen de la asignatura "Horas de Libre Configuración", 2º DAW) que practica el manejo de sesiones PHP y formularios con múltiples acciones (`añadir`, `guardar`, `eliminar`, `limpiar`).
 
+## Seguridad
+
+El texto de las tareas, almacenado en sesión, se mostraba sin escapar, permitiendo XSS almacenado (una tarea como `<script>...</script>` se ejecutaría en el navegador). Ahora se escapa con `htmlspecialchars()` antes de mostrarlo.
+
 ## Licencia
 
 El repositorio no incluye un archivo de licencia.
